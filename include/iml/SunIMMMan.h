@@ -43,9 +43,6 @@ Sun Microsystems, Inc. or its licensors is granted.
 #ifndef SUNIMMMAN_H
 #define SUNIMMMAN_H
 
-#define min(a,b) (((a) < (b)) ? (a) : (b))
-#define max(a,b) (((a) > (b)) ? (a) : (b))
-
 #ifdef  USE_XSUNIM_ADAPTER
 
 typedef enum 
