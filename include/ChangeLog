@@ -1,0 +1,254 @@
+2003-06-12  MIYASHITA Hisashi  <himi@li18nux.org>
+
+	* EIMIL.h (EIMIL_initialize): New declaration.
+	(EIMIL_RMREF, EIMIL_REFCHECK): Return 0	when
+	calling EIMIL_destruct_value().
+
+2003-06-05  MIYASHITA Hisashi  <himi@li18nux.org>
+
+	* iiimp/iiimp.h (IIIMF_status): Added
+	IIIMF_STATUS_PROTOCOL_VERSION.
+	(IIIMF_status): Explicitly specify the value of the symboles.
+
+	* iiimp/iiimp-opcode.h (IIIMP_OPCODES): Use an enumerator to
+	define constants for opcodes.  And add IM_PROTOCOL_VERSION.
+
+	* iiimp/iiimp-data.h (IIIMP_protocol_version_v): New structure.
+	(IIIMP_message): Added protocol_verison.
+	(IIIMP_status): Added IIIMP_DATA_PROTOCOL_VERSION_ERROR.
+	(iiimp_data_s_with_protocol_version_new): New APIs.
+	(iiimp_data_s_get_protocol_version): Ditto.
+	(iiimp_protocol_version_pack): Ditto.
+	(iiimp_protocol_version_new): Ditto.
+
+2003-05-07  MIYASHITA Hisashi  <himi@li18nux.org>
+
+	* X11/xc: New directory to store X private include filesw
+	provided by X consortium.
+	* X11/XFree86: Likewise, but they are provided by XFree86.
+
+	* X11/XlcPubI.h: Moved to xc.
+	* X11/XlcPublic.h: Ditto.
+	* X11/Xlcint.h: Ditto.
+	* X11/Xvarargs.h: Ditto.
+
+	* X11/XFree86/XlcPubI.h: New file.
+	* X11/XFree86/XlcPublic.h: Ditto.
+	* X11/XFree86/Xlcint.h: Ditto.
+	
+	* X11/Xtrans.h: Removed.
+
+2003-04-23  MIYASHITA Hisashi  <himi@li18nux.org>
+
+	* iiimcf.h (IIIMCF_ATTRS): Add
+	IIIMCF_ATTR_CLIENT_X_DISPLAY_NAME and
+	IIIMCF_ATTR_CLIENT_X_SERVER_VENDOR.
+
+2003-04-22  MIYASHITA Hisashi  <himi@li18nux.org>
+
+	* iiimcf.h (IIIMCF_EVENT_TYPES): Add
+	IIIMCF_EVENT_TYPE_SETICFOCUS and
+	IIIMCF_EVENT_TYPE_UNSETICFOCUS.
+	(iiimcf_reset_context, iiimcf_create_seticfocus_event)
+	(iiimcf_create_unseticfocus_event): New APIs.
+
+	* iiimp/iiimp.h (IIIMF_status): Add
+	IIIMF_STATUS_COMPONENT_INDIFFERENT.
+
+	* iiimcf.h (IIIMCF_ATTRS): Add IIIMCF_ATTR_INPUT_METHOD_NAME.
+
+2003-03-26  MIYASHITA Hisashi  <himi@li18nux.org>
+
+	* iiimcf.h (IIIMCF_ATTRS): Add
+	IIIMCF_ATTR_DISABLE_AUTOMATIC_RESTORATION.
+
+2003-03-13  MIYASHITA Hisashi  <himi@li18nux.org>
+
+	* iiimcf.h (IIIMCF_EVENT_TYPES): Add IIIMCF_EVENT_TYPE_DESTROY.
+	(IIIMCF_IS_EVENT_TYPE_BROADCAST): New macro.
+
+2003-03-12  MIYASHITA Hisashi  <himi@li18nux.org>
+
+	* iiimcf.h (iiimcf_context_get_attr): New API.
+	(IIIMCF_handle, IIIMCF_attr, IIIMCF_context)
+	(IIIMCF_text, IIIMCF_lookup_choice, IIIMCF_language)
+	(IIIMCF_input_method, IIIMCF_event, IIIMCF_component)
+	(IIIMCF_downloaded_object): Introduce another typedefs
+	for these opaque objects.  But we remain the previous
+	typedefs in #if 0 block just in case.
+
+	* iiimcf.h (IIIMCF_version): Removed.
+	(iiimcf_get_version_number): Now it takes handle as the first
+	argument.
+	(iiimcf_get_version): Removed.
+	(iiimcf_get_aux_draw_data): New function declaration.
+	(iiimcf_create_aux_setvalues_event): Ditto.
+	(iiimcf_get_aux_event_value): Ditto.
+
+	* iiimcf.h (IIIMCF_VERSION_ITEMS): Change the notation
+	with bit-shift operators to specify constants.
+	(IIIMCF_VERSION_CATEGORIES): New enumerator.
+
+2003-03-11  MIYASHITA Hisashi  <himi@li18nux.org>
+
+	* iiimcf.h (IIIMCF_EVENT_TYPES): Remove IIIMCF_EVENT_TYPE_EVENTLIKE_START
+	and IIIMCF_EVENT_TYPE_TRIGGER_NOTIFY_START, to avoid cofusing actual
+	START events like IIIMCF_EVENT_TYPE_UI_PREEDIT_START.  Introduce 
+	IIIMCF_EVENT_TYPE_EVENTLIKE, IIIMCF_EVENT_TYPE_KEYEVENT_END,
+	IIIMCF_EVENT_TYPE_TRIGGER_NOTIFY_END, and IIIMCF_EVENT_TYPE_EVENTLIKE_END
+	to articulate the range of event kind.
+	(iiimcf_create_keyevent): Make the input keyevent argument
+	"const IIIMCF_keyevent*".
+
+2003-03-07  MIYASHITA Hisashi  <himi@li18nux.org>
+
+	* iiimcf.h (IIIMCF_EVENT_TYPES): Add new constants (which involves
+	renumbering!), IIIMCF_EVENT_TYPE_UI_PREEDIT_START,
+	IIIMCF_EVENT_TYPE_UI_PREEDIT_DONE,
+	IIIMCF_EVENT_TYPE_UI_LOOKUP_CHOICE_START,
+	IIIMCF_EVENT_TYPE_UI_LOOKUP_CHOICE_DONE,
+	IIIMCF_EVENT_TYPE_UI_STATUS_START, IIIMCF_EVENT_TYPE_UI_STATUS_DONE,
+	IIIMCF_EVENT_TYPE_AUX_SETVALUES, IIIMCF_EVENT_TYPE_AUX_START, and
+	IIIMCF_EVENT_TYPE_AUX_DONE.
+
+2003-03-01  MIYASHITA Hisashi  <himi@li18nux.org>
+
+	* iiimp/iiimp.h (IIIMF_status): Add
+	IIIMF_STATUS_NOT_TRIGGER_KEY.
+
+	* iiimcf.h (IIIMCF_UISTATE):
+	Add IIIMCF_STATE_CONVERSION_MODE_CHANGED.
+	(iiimcf_get_current_conversion_mode): New API.
+
+2003-02-28  MIYASHITA Hisashi  <himi@li18nux.org>
+
+	* iiimcf.h (iiimcf_get_downloaded_objects): Renamed.
+	And fix the type of the argument to downloaded object.
+
+2003-02-26  MIYASHITA Hisashi  <himi@li18nux.org>
+
+	* iiimcf.h (IIIMCF_EVENT_TYPES): Add IIIMCF_EVENT_TYPE_AUX_DRAW and
+	IIIMCF_EVENT_TYPE_AUX_SETVALUES.
+
+	* iiimp/iiimp.h (IIIMF_status): Add IIIMF_STATUS_NO_AUX.
+
+2003-02-23  MIYASHITA Hisashi  <himi@li18nux.org>
+
+	* iiimcf.h (IIIMCF_EVENT_TYPE): Add new constants.
+	Note that the value of IIIMCF_EVENT_TYPE_TRIGGER_NOTIFY is changed.
+	(IIIMCF_downloaded_object): New opaque object.
+	(IIIMCF_object_descriptor): New structure.
+	(iiimcf_get_downloaded_object_descriptor): New function declaration.
+	(iiimcf_get_downloaded_object_filename): Ditto.
+	(iiimcf_get_objects): Ditto.
+	(iiimcf_get_object_descriptor_list): Ditto.
+
+2003-02-14  MIYASHITA Hisashi  <himi@li18nux.org>
+
+	* iiimcf.h: The API is slightly changed.  iiimcf_get/put_attr_value are now
+	replaced with iiimcf_attr_get/put_TYPENAME_value.
+	(IIIMCF_attr_value): Removed.
+	(iiimcf_attr_get, iiimcf_attr_put): Removed.
+	(iiimcf_attr_put_string_value, iiimcf_attr_get_string_value)
+	(iiimcf_attr_put_integer_value, iiimcf_attr_get_integer_value)
+	(iiimcf_attr_put_ptr_value, iiimcf_attr_get_ptr_value):
+	New function declarations.
+
+2003-02-08  MIYASHITA Hisashi  <himi@li18nux.org>
+
+	* iiimcf.h (IIIMF_ATTR_CLIENT_TYPE): Renamed from IIIMCF_ATTR_CLIENT_NAME.
+	(IIIMCF_attr_value): "str" must be const.
+
+2003-02-07  MIYASHITA Hisashi  <himi@li18nux.org>
+
+	* iiimcf.h (iiimcf_ignore_event): New API.
+
+2003-02-06  MIYASHITA Hisashi  <himi@li18nux.org>
+
+	* iiimcf.h (IIIMCF_ATTRS): Add new attributes,
+	IIIMCF_ATTR_CLIENT_NAME and
+	IIIMCF_ATTR_DISABLE_AUTOMATIC_TRIGGER_NOTIFY.
+	(IIIMCF_component_interface): New typedef.
+	(iiimcf_get_trigger_keys): New function declaration.
+	(iiimcf_register_component, iiimcf_unregister_component)
+	(iiimcf_get_component, iiimcf_component_get_attr):
+	New function declarations.
+
+	* iiimp/iiimp.h (IIIMF_status): Add new constants,
+	IIIMF_STATUS_NO_COMPONENT and IIIMF_STATUS_STATIC_EVENT_FLOW.
+
+2003-02-05  MIYASHITA Hisashi  <himi@li18nux.org>
+
+	* iiimp/iiimp.h: Include iiimp-keycode.h.
+	* iiimp/iiimp-keycode.h: New file.
+
+2003-02-01  MIYASHITA Hisashi  <himi@li18nux.org>
+
+	* iiimcf.h (IIIMCF_LOOKUP_CHOICE_DIRECTION): New enumerator.
+	(iiimcf_duplicate_text, iiimcf_destroy_text): New API.
+	(iiimcf_get_lookup_choice_configuration): New API.
+	(iiimcf_get_lookup_choice_title): New API.
+	(iiimcf_get_lookup_choice_size): Add arguments.
+
+	* EIMIL.h (EIMIL_UTF32_string_len, EIMIL_UTF32_strcmp)
+	(EIMIL_convert_UTF32_to_UTF8, EIMIL_convert_UTF8_to_UTF32char)
+	(EIMIL_convert_UTF8_to_UTF32, EIMIL_adjust_UTF16_pos_to_UTF32)
+	(EIMIL_adjust_UTF32_pos_to_UTF16, EIMIL_convert_UTF32_to_UTF16)
+	(EIMIL_convert_UTF16_to_UTF32, EIMIL_construct_mtext_from_UTF8)
+	(EIMIL_construct_mtext_from_UTF16, EIMIL_construct_mtext_from_UTF32):
+	Add const qualifiery to the type of input string.
+
+2003-01-29  MIYASHITA Hisashi  <himi@li18nux.org>
+
+	* iiimp/iiimp-data.h (IIIMP_FEEDBACK_0_HIGHLIGHT) 
+	(IIIMP_FEEDBACK_0_PRIMARY, IIIMP_FEEDBACK_0_SECONDARY) 
+	(IIIMP_FEEDBACK_0_TERTIARY): New macros.
+
+2003-01-28  MIYASHITA Hisashi  <himi@li18nux.org>
+
+	* iiimcf.h (IIIMCF_EVENT_TYPES): Add IIIMCF_EVENT_TYPE_TRIGGER_NOTIFY.
+	(IIIMCF_ATTR_NULL): Fix typo.
+	(iiimcf_get_language_id): Declare plangid as a constant string.
+	(iiimcf_get_input_method_languages): Change the type of pplanguages.
+	(iiimcf_get_supported_languages): Change the type of pplangs.
+	(iiimcf_create_trigger_notify_event): New function declaration.
+	(iiimcf_get_trigger_notify_flag): Ditto.
+
+	* iiimp/iiimp.h (iiimf_send_message, iiimf_receive_message): Removed.
+	(iiimf_connect_socket_stream, iiimf_listen_socket_stream)
+	(iiimf_accept_socket_stream, iiimf_delete_socket_stream): New function
+	declarations.
+
+2003-01-21  MIYASHITA Hisashi  <himi@li18nux.org>
+
+	* iiimcf.h: New include file.
+
+2003-01-21  MIYASHITA Hisashi  <himi@li18nux.org>
+
+	* EIMIL.h (pEIMIL_nil_sym, pEIMIL_t_sym)
+	(pEIMIL_feedback_sym, pEIMIL_candidates_sym):
+	Moved from EIMILint.h.
+
+2003-01-21  MIYASHITA Hisashi  <himi@li18nux.org>
+
+	* iiimp/iiimp.h (iiimf_im_user_set, iiimf_send_message, iiimf_receive_message):
+	New function declarations.
+
+2002-12-26  MIYASHITA Hisashi  <himi@li18nux.org>
+
+	* syscfg.h (ASSERT): Use %d for __LINE__, because it will be
+	replaced with a number.
+	(ERROR_INTERNAL): Ditto.
+
+2001-10-24  HideToshi Tajima  <tajima@eng.sun.com>
+
+	* X11/Xlcint.h: 
+	check HAVE_XICCALLBACK to redefine XICCallback/XICProc/XIDProc
+
+2001-10-22  MIYASHITA Hisashi  <himi@m17n.org>
+
+	* X11/Xvarargs.h: Updated to XFree86 4.1.0.
+	* X11/Xtrans.h: Ditto.
+	* X11/Xlcint.h: Ditto.
+	* X11/XlcPublic.h: Ditto.
+	* X11/XlcPubI.h: Ditto.

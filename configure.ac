@@ -1,0 +1,70 @@
+dnl configure.ac file for IIIMF-chewing LE
+
+dnl require autconf 2.50 or later.
+AC_PREREG(2.50)
+AC_INIT(iiimf-chewing, 0.0.2, jserv@kaffe.org)
+dnl common initialization
+IM_INIT(.)
+
+AM_INIT_AUTOMAKE
+AM_CONFIG_HEADER(config.h)
+
+AC_DISABLE_STATIC
+AC_PROG_LIBTOOL
+
+IM_SYSTEM_AUTOHEADER
+AH_TEMPLATE([HAVE_XICCALLBACK], [Xlib.h has XICCallback declaration.])
+
+# Checks for libraries.
+CHEWING_VERSION=0.2.4
+
+IM_CHECK_SYSTEM
+IM_CHECK_DLOPEN
+
+IM_CHECK_X
+IM_CHECK_GTK
+IM_CHECK_MOTIF
+
+# Check for libchewing
+PKG_CHECK_MODULES(CHEWING, [chewing >= $CHEWING_VERSION])
+AC_SUBST(CHEWING_VERSION)
+
+CHEWING_DATADIR=`$PKG_CONFIG --variable=datadir chewing`
+if test "x$CHEWING_DATADIR" = "x"; then
+  CHEWING_DATADIR=%{prefix}/share/chewing
+fi
+
+AC_SUBST(CHEWING_DATADIR)
+AC_DEFINE_UNQUOTED(CHEWING_DATADIR,"$CHEWING_DATADIR", [Chewing Runtime data dir])
+
+IM_CONSTRUCT_FLAGS
+IM_CONSTRUCT_THREAD_FLAGS
+
+CFLAGS="-Wall \
+	${CFLAGS} \
+	${COMMON_CXX_CFLAGS} \
+	${COMMON_CFLAGS} \
+        ${DEBUG_CXX_CFLAGS} \
+	${DEBUG_CFLAGS} \
+        ${THREAD_COMMON_CXX_CFLAGS} \
+        ${XML_CFLAGS}"
+
+LDFLAGS="${LDFLAGS} ${COMMON_LDFLAGS} ${THREAD_LDFLAGS}"
+
+LE_TARGETS="chewing"
+
+IM_TEST_XICCALLBACK
+if test "X${HAVE_XICCALLBACK}" = "Xyes" ; then
+	AC_DEFINE(HAVE_XICCALLBACK)
+fi
+
+AC_SUBST(TOPDIR)
+AC_SUBST(LE_TARGETS)
+IM_SUBST
+IM_SYSTEM_SUBST
+IM_X_SUBST
+
+AH_TEMPLATE(IM_LOCALEDIR, Define IIIMF locale dir.)
+AC_DEFINE_UNQUOTED(IM_LOCALEDIR, "${IM_LOCALEDIR}")
+
+AC_OUTPUT( Makefile src/Makefile )
