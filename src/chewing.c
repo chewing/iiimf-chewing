@@ -528,6 +528,7 @@ Bool if_chewing_OpenIF(iml_if_t *If)
 Bool if_chewing_CloseIF(iml_if_t *If)
 {
 	DEBUG_printf("  ====> Chewing closing...");
+	TerminateChewing();
 	iconv_close(iconv_context);
 	DEBUG_printf(" done\n");
 	return True;
